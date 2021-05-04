@@ -11,7 +11,6 @@ edition = "2018"
 
 [features]
 now = [ "time" ]
-wasm-bindgen = ["js-sys", "wasm-bindgen_rs", "web-sys"]
 inaccurate = []
 
 [dependencies]
@@ -21,22 +20,22 @@ cfg-if = "1.0"
 time = { version = "0.2", optional = true }
 
 [target.wasm32-unknown-unknown.dependencies]
-js-sys = { version = "0.3", optional = true }
+js-sys = { version = "0.3" }
 stdweb = { version = "0.4", optional = true }
-wasm-bindgen_rs = { package = "wasm-bindgen", version = "0.2", optional = true }
-web-sys = { version = "0.3", optional = true, features = ['Window', 'Performance', 'PerformanceTiming'] }
+wasm-bindgen_rs = { package = "wasm-bindgen", version = "0.2" }
+web-sys = { version = "0.3", features = ['Window', 'Performance', 'PerformanceTiming'] }
 
 [target.wasm32-unknown-emscripten.dependencies]
-js-sys = { version = "0.3", optional = true }
+js-sys = { version = "0.3" }
 stdweb = { version = "0.4", optional = true }
-wasm-bindgen_rs = { package = "wasm-bindgen", version = "0.2", optional = true }
-web-sys = { version = "0.3", optional = true, features = ['Window', 'Performance', 'PerformanceTiming'] }
+wasm-bindgen_rs = { package = "wasm-bindgen", version = "0.2" }
+web-sys = { version = "0.3", features = ['Window', 'Performance', 'PerformanceTiming'] }
 
 [target.asmjs-unknown-emscripten.dependencies]
-js-sys = { version = "0.3", optional = true }
+js-sys = { version = "0.3" }
 stdweb = { version = "0.4", optional = true }
-wasm-bindgen_rs = { package = "wasm-bindgen", version = "0.2", optional = true }
-web-sys = { version = "0.3", optional = true, features = ['Window', 'Performance', 'PerformanceTiming'] }
+wasm-bindgen_rs = { package = "wasm-bindgen", version = "0.2" }
+web-sys = { version = "0.3", features = ['Window', 'Performance', 'PerformanceTiming'] }
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"
