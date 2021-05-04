@@ -95,20 +95,6 @@ fn duration_from_f64(millis: f64) -> Duration {
         + Duration::from_nanos((millis.fract() * 1.0e6) as u64)
 }
 
-#[cfg(all(feature = "stdweb", not(feature = "wasm-bindgen")))]
-#[allow(unused_results)] // Needed because the js macro triggers it.
-pub fn now() -> f64 {
-    use stdweb::unstable::TryInto;
-
-    // https://developer.mozilla.org/en-US/docs/Web/API/Performance/now
-    #[cfg(not(feature = "inaccurate"))]
-    let v = js! { return performance.now(); };
-    #[cfg(feature = "inaccurate")]
-    let v = js! { return Date.now(); };
-    v.try_into().unwrap()
-}
-
-#[cfg(feature = "wasm-bindgen")]
 pub fn now() -> f64 {
     #[cfg(not(feature = "inaccurate"))]
     let now = {
@@ -122,17 +108,4 @@ pub fn now() -> f64 {
     #[cfg(feature = "inaccurate")]
     let now = js_sys::Date::now();
     now
-}
-
-// The JS now function is in a module so it won't have to be renamed
-#[cfg(not(any(feature = "wasm-bindgen", feature = "stdweb")))]
-mod js {
-    extern "C" {
-        pub fn now() -> f64;
-    }
-}
-// Make the unsafe extern function "safe" so it can be called like the other 'now' functions
-#[cfg(not(any(feature = "wasm-bindgen", feature = "stdweb")))]
-pub fn now() -> f64 {
-    unsafe { js::now() }
 }
